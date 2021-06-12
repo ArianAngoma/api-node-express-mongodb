@@ -16,6 +16,7 @@ const userExistsById = async (id) => {
     if (!existsUser) throw new Error(`El id ${id} no existe`);
 }
 
+
 module.exports = {
     isValidRole,
     emailExists,
