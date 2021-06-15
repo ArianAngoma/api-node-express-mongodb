@@ -17,8 +17,6 @@ const validateJWT = async (req = request, res = response, next) => {
             msg: 'Token no válido - usuario no existe en DB'
         });
 
-        console.log(await User.findById(uid));
-
         // Verificar si el uid tiene state true
         if (!user.state) return res.status(401).json({
             msg: 'Token no válido - usuario con state false'
