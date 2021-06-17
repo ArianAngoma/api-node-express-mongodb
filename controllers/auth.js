@@ -44,7 +44,7 @@ const googleSignIn = async (req, res = response) => {
     try {
         const {email, name, img} = await googleVerify(id_token);
         let user = await User.findOne({email});
-        if (!user){
+        if (!user) {
             const data = {
                 name,
                 email,

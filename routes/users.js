@@ -7,7 +7,7 @@ const {isAdminRole, hasRole} = require("../middlewares/validate-roles");
 const {validateJWT} = require("../middlewares/validate-jwt");*/
 const {validateFields, validateJWT, isAdminRole, hasRole} = require('../middlewares');
 
-const {isValidRole, emailExists, userExistsById} = require("../helpers/db-validators");
+const {isValidRole, emailExists, userExistsById, isIdUserToken} = require("../helpers/db-validators");
 
 const router = Router();
 
@@ -24,8 +24,10 @@ router.post('/', [
 ], usersPost);
 
 router.put('/:id', [
+    validateJWT,
     check('id', 'No es un ID válido').isMongoId(),
     check('id').custom(userExistsById),
+    check('id').custom(isIdUserToken),
     check('email', 'El correo no es válido').isEmail(),
     check('email').custom(emailExists),
     check('role').custom(isValidRole),
