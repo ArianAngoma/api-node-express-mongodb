@@ -60,6 +60,14 @@ const existsProductByName = async (name, {req}) => {
     if ((productExists) && (productExists.id !== req.params.id)) throw new Error(`El producto ${name} ya existe`);
 }
 
+// Valida colecciones permitidas
+const collectionsAllowed = async (collection = '', collections = []) => {
+    const included = collections.includes(collection);
+    if (!included) throw new Error(`La colección ${collection} no es permitida - ${collections}`);
+
+    return true;
+}
+
 module.exports = {
     isValidRole,
     emailExists,
@@ -70,5 +78,6 @@ module.exports = {
     existsCategoryByName,
     productExistsById,
     isStateProductTrue,
-    existsProductByName
+    existsProductByName,
+    collectionsAllowed
 }
