@@ -43,10 +43,13 @@ const usersPost = async (req, res = response) => {
 const usersPut = async (req, res = response) => {
     const {id} = req.params;
     const {_id, password, google, ...info} = req.body;
+
+    // Si el usuario quiere actualizar su password
     if (password) {
         const salt = bcryptjs.genSaltSync();
         info.password = bcryptjs.hashSync(password, salt);
     }
+
     const user = await User.findByIdAndUpdate(id, info, {new: true});
     res.json(user);
 }
