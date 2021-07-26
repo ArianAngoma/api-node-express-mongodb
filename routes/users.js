@@ -13,6 +13,7 @@ const router = Router();
 
 router.get('/', usersGet);
 
+// Crear USER
 router.post('/', [
     check('name', 'El nombre es obligatorio').not().isEmpty(),
     check('password', 'La contraseña debe tener más de 6 carácter').isLength({min: 6}),
@@ -23,6 +24,7 @@ router.post('/', [
     validateFields
 ], usersPost);
 
+// Actualizar USER
 router.put('/:id', [
     validateJWT,
     check('id', 'No es un ID válido').isMongoId(),
@@ -34,6 +36,7 @@ router.put('/:id', [
     validateFields
 ], usersPut);
 
+// Eliminar USER
 router.delete('/:id', [
     validateJWT,
     // isAdminRole,
